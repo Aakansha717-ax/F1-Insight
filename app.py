@@ -18,6 +18,17 @@ TEAM_COLORS = {
     "Kick Sauber": "#52E252",
     "Haas F1 Team": "#B6BABD"
 }
+TRACK_IMAGES = {
+    "Bahrain": "tracks/bahrain.png",
+    "Saudi Arabia": "tracks/saudi_arabia.png",
+    "Australia": "tracks/australia.png",
+    "Japan": "tracks/japan.png",
+    "Monaco": "tracks/monaco.png",
+    "Spain": "tracks/spain.png",
+    "Canada": "tracks/canada.png",
+    "Austria": "tracks/austria.png",
+    "Great Britain": "tracks/great_britain.png"
+}
 # -------------------------------
 # FastF1 Cache
 # -------------------------------
@@ -76,6 +87,15 @@ with col2:
         ]
     )
 
+left, right = st.columns([2, 1])
+with right:
+    st.subheader("🗺️ Circuit Map")
+
+    st.image(
+        TRACK_IMAGES[race],
+        caption=f"{race} Grand Prix Circuit",
+        use_container_width=True
+    )
 # -------------------------------
 # Load Session
 # -------------------------------
