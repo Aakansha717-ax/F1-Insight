@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# FastF1 Cache
+cache/
+
+# Virtual Environment
+.venv/
+venv/
+
+# VS Code
+.vscode/
