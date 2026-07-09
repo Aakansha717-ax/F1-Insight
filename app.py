@@ -272,6 +272,57 @@ with col3:
         "🏁 Completed Laps",
         laps
     )
+st.divider()
+st.subheader("🏁 Race Insights")
+winner = display_results.iloc[0]
+display_results = display_results.copy()
+
+display_results["PositionsGained"] = (
+    display_results["GridPosition"] - display_results["Position"]
+)
+
+biggest_gain = display_results.loc[
+    display_results["PositionsGained"].idxmax()
+]
+fastest_driver = None
+fastest_time = float("inf")
+fastest_lap = None
+
+for driver in drivers:
+
+    laps = session.laps.pick_drivers(driver).pick_quicklaps()
+
+    if laps.empty:
+        continue
+
+    best = laps["LapTime"].min()
+
+    if best.total_seconds() < fastest_time:
+
+        fastest_time = best.total_seconds()
+
+        driver_name = results.loc[
+        results["Abbreviation"] == driver,
+        "FullName"
+        ].values[0]
+
+        fastest_driver = driver_name
+
+        fastest_lap = laps.loc[
+            laps["LapTime"] == best,
+            "LapNumber"
+        ].iloc[0]
+
+st.info(f"""
+🏆 **Winner:** {winner['FullName']} ({winner['TeamName']})
+
+🚀 **Biggest Position Gain:** {biggest_gain['FullName']}
+(+{int(biggest_gain['PositionsGained'])} places)
+
+⚡ **Fastest Lap:** {fastest_driver}
+on Lap {int(fastest_lap)}
+({fastest_time:.3f} sec)
+""")
 
 st.plotly_chart(fig, use_container_width=True)
 
