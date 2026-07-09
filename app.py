@@ -1,7 +1,10 @@
+import os
 import streamlit as st
 import fastf1
 import plotly.express as px
 import plotly.graph_objects as go
+
+os.makedirs("cache", exist_ok=True)
 
 TEAM_COLORS = {
     "McLaren": "#FF8000",
